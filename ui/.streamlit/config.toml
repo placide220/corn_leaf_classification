@@ -1,0 +1,16 @@
+# Ibigori theme: colours of a maize field (see the palette notes at the top of app.py)
+[theme]
+base = "light"
+primaryColor = "#14382B"              # leaf ink: buttons, toggles, active tabs, progress bars
+backgroundColor = "#EDF1E8"           # husk: pale green-grey page background
+secondaryBackgroundColor = "#E1E8DA"  # slightly darker husk: inputs, code, tables
+textColor = "#1F2B22"                 # near-black with a green cast, softer than pure black
+borderColor = "#CBD8C3"               # field line
+baseRadius = "6px"
+showSidebarBorder = false
+
+[client]
+toolbarMode = "minimal"
+
+[browser]
+gatherUsageStats = false

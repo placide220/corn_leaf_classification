@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
+  <!-- A maize leaf blade curving up from the stalk, with its midrib, and one gold kernel -->
+  <path d="M10 56 C 14 34, 30 14, 54 8 C 48 26, 34 46, 10 56 Z" fill="#14382B"/>
+  <path d="M12 54 C 22 40, 36 24, 52 10" stroke="#EDF1E8" stroke-width="2" fill="none" stroke-linecap="round"/>
+  <path d="M22 44 l 6 -2 M30 34 l 6 -2 M38 25 l 5 -2" stroke="#EDF1E8" stroke-width="1.2" stroke-linecap="round"/>
+  <ellipse cx="50" cy="48" rx="6" ry="8" fill="#E3B23C"/>
+</svg>
