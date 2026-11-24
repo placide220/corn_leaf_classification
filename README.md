@@ -8,10 +8,10 @@ balancer, and a deployment on Microsoft Azure.
 
 | | Link |
 |---|---|
-| 🎥 **Video demo** | **[ADD YOUR YOUTUBE LINK HERE]** |
-| 🖥️ **Web app (UI)** | **[ADD YOUR UI URL HERE]** |
-| ⚙️ **API** | **[ADD YOUR API URL HERE]** (interactive docs at `/docs`) |
-| 📓 **Notebook** | [`notebook/corn_leaf_classification.ipynb`](notebook/corn_leaf_classification.ipynb) |
+|  **Video demo** | **[ADD YOUR YOUTUBE LINK HERE]** |
+|  **Web app (UI)** | **https://corn-ui.salmonpond-117aecb3.uaenorth.azurecontainerapps.io/field-data** |
+|  **API** | **https://corn-api.salmonpond-117aecb3.uaenorth.azurecontainerapps.io/docs** (interactive docs at `/docs`) |
+|  **Notebook** | [`notebook/corn_leaf_classification.ipynb`](notebook/corn_leaf_classification.ipynb) |
 
 ---
 
@@ -399,4 +399,4 @@ corn_leaf_classification/
 
 ---
 
-**Author:** [YOUR NAME], African Leadership University (ALU), Kigali
+
