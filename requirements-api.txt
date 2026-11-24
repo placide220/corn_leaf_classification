@@ -1,0 +1,9 @@
+# Minimal dependencies for the API container.
+tensorflow-cpu==2.21.0 ; platform_machine == "x86_64"
+tensorflow==2.21.0 ; platform_machine != "x86_64"
+numpy>=1.26
+scikit-learn>=1.4
+pillow>=10.0
+fastapi>=0.110
+uvicorn[standard]>=0.29
+python-multipart>=0.0.9

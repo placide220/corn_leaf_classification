@@ -1,0 +1,73 @@
+# =====================================================================================
+# Full stack: API replicas + nginx load balancer + Streamlit UI
+#
+#   docker compose up -d --build                  # 1 API container
+#   docker compose up -d --scale api=4            # 4 API containers behind nginx
+#   docker compose ps                             # see the containers and their health
+#   docker compose logs -f nginx                  # watch which replica serves each request
+#   docker compose down                           # stop everything
+#
+#   API (through nginx):  http://localhost:8000/docs
+#   UI:                   http://localhost:8501
+# =====================================================================================
+
+services:
+  # ------------------------------------------------------------------ the model API
+  api:
+    build: .
+    image: corn-disease-api:latest
+    # No `ports:` and no `container_name:` here. Both would stop us from running several
+    # replicas. The replicas are only reachable through nginx.
+    expose:
+      - "8000"
+    environment:
+      # Limit TensorFlow's threads to match the CPU limit below. Without this every
+      # replica would try to use ALL host cores and they would fight each other, which
+      # hides the effect of adding containers in the load test.
+      TF_NUM_INTRAOP_THREADS: "${API_TF_THREADS:-1}"
+      TF_NUM_INTEROP_THREADS: "2"
+      OMP_NUM_THREADS: "${API_TF_THREADS:-1}"
+      # Retraining settings (defaults are in src/model.py)
+      RETRAIN_MIN_NEW_IMAGES: "${RETRAIN_MIN_NEW_IMAGES:-10}"
+      RETRAIN_EPOCHS: "${RETRAIN_EPOCHS:-3}"
+    volumes:
+      # Shared folders: every replica reads the SAME model file and data. When one replica
+      # retrains and saves a new model, the others notice the new file and hot-reload it.
+      # A lock file in models/ makes sure only one replica retrains at a time.
+      - ./models:/app/models
+      - ./data:/app/data
+    deploy:
+      resources:
+        limits:
+          # Each replica gets 1 CPU, so "2 containers" really means twice the compute.
+          # Memory cap 3 GB: predicting needs ~0.8 GB, but RETRAINING needs ~1.5-2 GB more.
+          # With a 2 GB cap Docker kills the container mid-retraining (and predictions fail
+          # while it restarts). Change with e.g. API_CPUS=2 API_MEMORY=4g docker compose up ...
+          cpus: "${API_CPUS:-1.0}"
+          memory: "${API_MEMORY:-3g}"
+    restart: unless-stopped
+
+  # ------------------------------------------------------------------ load balancer
+  nginx:
+    image: nginx:1.28-alpine            # >= 1.27.3 is needed for `resolve` in nginx.conf
+    ports:
+      - "8000:80"                       # http://localhost:8000 -> nginx -> api replicas
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+    depends_on:
+      api:
+        condition: service_healthy      # wait until the model has loaded
+    restart: unless-stopped
+
+  # ------------------------------------------------------------------ dashboard
+  ui:
+    build: ./ui
+    image: corn-disease-ui:latest
+    ports:
+      - "8501:8501"
+    environment:
+      # Streamlit calls the API from inside Docker, so it uses nginx's service name
+      API_URL: "http://nginx"
+    depends_on:
+      - nginx
+    restart: unless-stopped
