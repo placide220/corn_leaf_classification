@@ -290,13 +290,13 @@ load ramping to **10 users** (5 users/s) and then to **30 users** (5 users/s).
 | **Aggregated** | **119** | **0 (0%)** | **330** | **1,200** | **1,300** | **516.5** | **222** | **2,654** | **9.38** |
 
 **Statistics tab**
-![Locust statistics against the Azure API](results/azure_locust_statistics.png)
+screens in results
 
 **Charts tab** (requests per second and response times)
-![Locust charts against the Azure API](results/azure_locust_charts.png)
+screens in results
 
 **Logs tab** (ramp to 10 users, then to 30 users)
-![Locust master logs](results/azure_locust_logs.png)
+screens in results
 
 **Interpretation:**
 - **No failures.** All 119 requests succeeded, so the deployed API handled the load without errors or timeouts.
