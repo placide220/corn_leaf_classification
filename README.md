@@ -8,10 +8,10 @@ balancer, and a deployment on Microsoft Azure.
 
 | | Link |
 |---|---|
-|  **Video demo** | **[ADD YOUR YOUTUBE LINK HERE]** |
+|  **Video demo** | **https://youtu.be/0Z15cty-S7I** |
 |  **Web app (UI)** | **https://corn-ui.salmonpond-117aecb3.uaenorth.azurecontainerapps.io/field-data** |
 |  **API** | **https://corn-api.salmonpond-117aecb3.uaenorth.azurecontainerapps.io/docs** (interactive docs at `/docs`) |
-|  **Notebook** | [`notebook/corn_leaf_classification.ipynb`](notebook/corn_leaf_classification.ipynb) |
+
 
 ---
 
